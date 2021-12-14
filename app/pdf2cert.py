@@ -36,7 +36,7 @@ def create_cert(name):
     # получаем свою PDF с помощью canvas из Reportlab
     new_pdf = PdfFileReader(packet)
     # берем шаблон PDF
-    existing_pdf = PdfFileReader(open(config.TEMPLATE_PDF, "rb"))
+    existing_pdf = PdfFileReader(open(config.ROOT_APP + '/' + config.TEMPLATE_PDF, "rb"))
 
     """
     2. Создаем новый PDF-файл с помощью PyPDF2
@@ -49,7 +49,7 @@ def create_cert(name):
     """
     3. Save and enjoy!
     """
-    outputStream = open('files/' + config.OUTPUT_PDF, "wb")
+    outputStream = open(config.ROOT_APP + '/files/' + config.OUTPUT_PDF, "wb")
     output.write(outputStream)
     outputStream.close()
     return True
