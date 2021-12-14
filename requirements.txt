@@ -1,0 +1,4 @@
+PyPDF2==1.26.0
+reportlab==3.6.2
+Flask==1.1.2
+Flask-RESTful==0.3.8
