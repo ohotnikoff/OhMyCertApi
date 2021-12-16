@@ -19,18 +19,30 @@ def download_file(name):
 class Cert(Resource):
     def post(self):
         parser = reqparse.RequestParser()
+        parser.add_argument('contact_id')
         parser.add_argument('user_fio')
+        parser.add_argument('template_pdf')
 
         args = parser.parse_args()
 
         # на вход
+        contact_id = args['contact_id']
         user_fio = args['user_fio']
+        template_pdf = args['template_pdf']
 
-        # создание сертификата
-        create_cert(user_fio)
+        if (len(user_fio) > 10) & (len(user_fio) < 40):
+
+            # создание сертификата
+            cert_pdf = create_cert(user_fio, contact_id, template_pdf)
+            if cert_pdf is not False:
+                return {
+                    'status': 'success',
+                    'cert_url': url_for("download_file", name=cert_pdf, _external=True)
+                }
 
         return {
-            'cert_url': url_for("download_file", name=config.OUTPUT_PDF, _external=True)
+            'status': 'error',
+            'cert_url': ''
         }
 
 
